@@ -28,10 +28,6 @@ jobs:
     - name: Build Next.js
       run: npm run build
 
-    # 5. Exportar como site estático
-    - name: Export Next.js
-      run: npm run export
-
     # 6. Configurar para publicação no GitHub Pages
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
