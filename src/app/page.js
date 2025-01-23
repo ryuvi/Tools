@@ -67,6 +67,23 @@ const colors = {
 	],
 };
 
+// Função para calcular a luminosidade de uma cor hexadecimal
+function getLuminance(hex) {
+  let r = parseInt(hex.substr(1, 2), 16);
+  let g = parseInt(hex.substr(3, 2), 16);
+  let b = parseInt(hex.substr(5, 2), 16);
+
+  // Fórmula de luminância (baseada na percepção humana)
+  return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+}
+
+// Função para calcular a cor da fonte baseada na cor de fundo
+function getFontColor(backgroundColor) {
+  const luminance = getLuminance(backgroundColor);
+  console.log(luminance)
+  return luminance > 127 ? "#000000" : "#FFFFFF"; // Fonte preta para cores claras, branca para escuras
+}
+
 function getRandomColorFromCategory() {
 	// Pega todas as chaves (categorias) do objeto colors
 	const categories = Object.keys(colors);
@@ -81,11 +98,18 @@ function getRandomColorFromCategory() {
 			Math.floor(Math.random() * colors[randomCategory].length)
 		];
 
-	return randomColor
+	const font_color = getFontColor(randomColor);
+	console.log(font_color)
+
+	return [randomColor, font_color]
 }
 
 
 export default function Home() {
+
+	const endpoints = ['/hex-viewer', '/binary-to-text', '/ascii-art-viewer']
+
+
   return (
 		<div>
 			<Header />
@@ -96,24 +120,10 @@ export default function Home() {
 					padding: 0,
 				}}
 			>
-				<li className="w-fit">
-					<Card
-						endpoint="/hex-viewer"
-						color={`${getRandomColorFromCategory()}BF`}
-					/>
-				</li>
-				<li className="w-fit">
-					<Card
-						endpoint="/binary-to-text"
-						color={`${getRandomColorFromCategory()}BF`}
-					/>
-				</li>
-				<li className="w-fit">
-					<Card
-						endpoint="/ascii-art-viewer"
-						color={`${getRandomColorFromCategory()}BF`}
-					/>
-				</li>
+				{
+					endpoints.map(item => <li key={item.replace("/", "")} className="w-fit"><Card endpoint={item} cardColor={getRandomColorFromCategory()}/></li>)
+				}
+
 			</ul>
 		</div>
   );

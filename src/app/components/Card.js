@@ -1,5 +1,5 @@
 import Link from 'next/link'
-export default function Card({ endpoint, color }) {
+export default function Card({ endpoint, cardColor }) {
     const removeSlash = (text) => text.replace("/", "");
     const removeDash = text => text.replace("-", " ");
     const firstLetter = word => {
@@ -15,7 +15,8 @@ export default function Card({ endpoint, color }) {
         return result
     }
 
-    return <Link href={endpoint}><div style={{backgroundColor: color}} className='rounded-lg shadow-md shadow-stone-100 p-6 w-fit mx-auto hover:brightness-90 hover:cursor-pointer'>
-        <h4 className='text-gray-800'>{formatText(endpoint)}</h4>
+
+    return <Link href={endpoint}><div style={{backgroundColor: cardColor[0]}} className='rounded-lg shadow-md shadow-stone-100 p-6 w-fit mx-auto hover:brightness-90 hover:cursor-pointer'>
+        <h4 style={{color: cardColor[1]}}>{formatText(endpoint)}</h4>
     </div></Link>
 }
