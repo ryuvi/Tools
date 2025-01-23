@@ -108,6 +108,12 @@ export default function Home() {
 						color={`${getRandomColorFromCategory()}BF`}
 					/>
 				</li>
+				<li className="w-fit">
+					<Card
+						endpoint="/ascii-art-viewer"
+						color={`${getRandomColorFromCategory()}BF`}
+					/>
+				</li>
 			</ul>
 		</div>
   );

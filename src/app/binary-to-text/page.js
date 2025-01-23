@@ -32,6 +32,7 @@ const BinaryToTextConverter = () => {
 					marginBottom: "10px",
 					padding: "10px",
 					fontSize: "16px",
+                    color: "black"
 				}}
 			/>
 			<br />
@@ -56,6 +57,7 @@ const BinaryToTextConverter = () => {
 					border: "1px solid #ccc",
 					borderRadius: "5px",
 					backgroundColor: "#f9f9f9",
+                    color: "black"
 				}}
 			>
 				{textOutput}
