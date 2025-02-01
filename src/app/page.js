@@ -80,7 +80,6 @@ function getLuminance(hex) {
 // Função para calcular a cor da fonte baseada na cor de fundo
 function getFontColor(backgroundColor) {
   const luminance = getLuminance(backgroundColor);
-  console.log(luminance)
   return luminance > 127 ? "#000000" : "#FFFFFF"; // Fonte preta para cores claras, branca para escuras
 }
 
@@ -99,7 +98,6 @@ function getRandomColorFromCategory() {
 		];
 
 	const font_color = getFontColor(randomColor);
-	console.log(font_color)
 
 	return [randomColor, font_color]
 }
@@ -107,21 +105,32 @@ function getRandomColorFromCategory() {
 
 export default function Home() {
 
-	const endpoints = ['/hex-viewer', '/binary-to-text', '/ascii-art-viewer']
+	const endpoints = [
+		{endpoint: '/hex-viewer', colors: getRandomColorFromCategory()},
+		{endpoint: '/binary-to-text', colors: getRandomColorFromCategory()},
+		{endpoint: '/ascii-art-viewer', colors: getRandomColorFromCategory()},
+		{endpoint: '/time-converter', colors: getRandomColorFromCategory()}
+	]
 
 
   return (
 		<div>
-			<Header />
+			{/*<Header />*/}
 			<ul
-				className="m-5 flex justify-evenly"
+				className="m-5 flex"
 				style={{
 					listStyle: "none",
 					padding: 0,
 				}}
 			>
-				{
-					endpoints.map(item => <li key={item.replace("/", "")} className="w-fit"><Card endpoint={item} cardColor={getRandomColorFromCategory()}/></li>)
+				{endpoints.map(item =>
+					<li
+						key={item.endpoint.replace("/", "")}
+						className="p-5 m-2 w-48 h-48 hover:cursor-pointer hover:brightness-90"
+						style={{backgroundColor: item.colors[0], color: item.colors[1]}}>
+						<Card endpoint={item.endpoint}/>
+					</li>
+					)
 				}
 
 			</ul>
