@@ -69,18 +69,18 @@ const colors = {
 
 // Função para calcular a luminosidade de uma cor hexadecimal
 function getLuminance(hex) {
-  let r = parseInt(hex.substr(1, 2), 16);
-  let g = parseInt(hex.substr(3, 2), 16);
-  let b = parseInt(hex.substr(5, 2), 16);
+	let r = parseInt(hex.substr(1, 2), 16);
+	let g = parseInt(hex.substr(3, 2), 16);
+	let b = parseInt(hex.substr(5, 2), 16);
 
-  // Fórmula de luminância (baseada na percepção humana)
-  return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+	// Fórmula de luminância (baseada na percepção humana)
+	return 0.2126 * r + 0.7152 * g + 0.0722 * b;
 }
 
 // Função para calcular a cor da fonte baseada na cor de fundo
 function getFontColor(backgroundColor) {
-  const luminance = getLuminance(backgroundColor);
-  return luminance > 127 ? "#000000" : "#FFFFFF"; // Fonte preta para cores claras, branca para escuras
+	const luminance = getLuminance(backgroundColor);
+	return luminance > 127 ? "#000000" : "#FFFFFF"; // Fonte preta para cores claras, branca para escuras
 }
 
 function getRandomColorFromCategory() {
@@ -99,41 +99,41 @@ function getRandomColorFromCategory() {
 
 	const font_color = getFontColor(randomColor);
 
-	return [randomColor, font_color]
+	return [randomColor, font_color];
 }
 
-
 export default function Home() {
-
 	const endpoints = [
-		{endpoint: '/hex-viewer', colors: getRandomColorFromCategory()},
-		{endpoint: '/binary-to-text', colors: getRandomColorFromCategory()},
-		{endpoint: '/ascii-art-viewer', colors: getRandomColorFromCategory()},
-		{endpoint: '/time-converter', colors: getRandomColorFromCategory()}
-	]
+		{ endpoint: "/hex-viewer", colors: getRandomColorFromCategory() },
+		{ endpoint: "/binary-to-text", colors: getRandomColorFromCategory() },
+		{ endpoint: "/ascii-art-viewer", colors: getRandomColorFromCategory() },
+		{ endpoint: "/time-converter", colors: getRandomColorFromCategory() },
+		{ endpoint: "/qr-code-gen", colors: getRandomColorFromCategory() },
+	];
 
-
-  return (
+	return (
 		<div>
 			{/*<Header />*/}
 			<ul
-				className="m-5 flex"
+				className="m-5 flex flex-wrap"
 				style={{
 					listStyle: "none",
 					padding: 0,
 				}}
 			>
-				{endpoints.map(item =>
+				{endpoints.map((item) => (
 					<li
 						key={item.endpoint.replace("/", "")}
 						className="p-5 m-2 w-48 h-48 hover:cursor-pointer hover:brightness-90"
-						style={{backgroundColor: item.colors[0], color: item.colors[1]}}>
-						<Card endpoint={item.endpoint}/>
+						style={{
+							backgroundColor: item.colors[0],
+							color: item.colors[1],
+						}}
+					>
+						<Card endpoint={item.endpoint} />
 					</li>
-					)
-				}
-
+				))}
 			</ul>
 		</div>
-  );
+	);
 }
